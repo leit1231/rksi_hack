@@ -5,6 +5,8 @@ from django.core.mail import send_mail
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+
+
 DEPARTMENT = [
         ("KO", "Коммерческий"),
         ("FI", "Финансовый"),
@@ -74,6 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[username_validator],
     )
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=20)
     full_name = models.CharField(max_length=255)
     department_user = models.CharField(choices=DEPARTMENT,
                                        max_length=2)
@@ -100,10 +103,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 class UserManager(BaseUserManager):
     use_in_migrations = True
     def _create_user(self, email, username, full_name, password, **extra_fields):
-        """
-        Create and save a user with the given username, email,
-        full_name, and password.
-        """
         if not email:
             raise ValueError('The given email must be set')
         if not username:
