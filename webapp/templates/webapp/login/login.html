@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
 	<meta charset="UTF-8">
@@ -27,7 +27,9 @@
     <form method="post">
       {% csrf_token %}
       <table>
-        {{ form.as_p }}
+		  {% for f in form %}
+		  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: <label>{{ f }}</label></p></label>
+		  {% endfor %}
         <tr>
           <td>&nbsp;</td>
           <td><input type="submit" value="Submit"></td>

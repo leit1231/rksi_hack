@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserLoginForm
 from django.contrib.auth import login
 
-def login(request):
+def loginUser(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
@@ -26,3 +26,5 @@ def home_page(request):
     }
     return render(request, 'webapp/home_page/index.html', context=context)
 
+def worker(request):
+    return render(request, 'webapp/working_page/index.html')

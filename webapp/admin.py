@@ -31,15 +31,15 @@ class Web_2(admin.ModelAdmin):
 
 
 
-@register(User)
+@register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
-    model = User
-    exclude = ["last_login", "groups", "user_permissions", "is_superuser"]
-    fields = ("username", "email", "password", "full_name", "department_user", "birthday", "access")
+    model = CustomUser
+    exclude = ["last_login", "groups", "user_permissions", "is_superuser", 'first_name','last_name',]
+    # fields = ("username", "email", "password", "full_name", "department_user", "birthday", "access")
     # add_form = UserCreationForm
     def save_model(self, request, obj, form, change):
         if obj.register_time == None:
-            send_mail(f"Здраствуйте, {obj.full_name}.",
+            send_mail(f"Здраствуйте, {obj.FIO}.",
                       f"Вы были зарегестрированны на <Название сайта>\n Ваш пароль: {obj.password}",
                       'bombino2281337test@gmail.com',[obj.email])
         obj.save()
@@ -47,6 +47,6 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(file, Web)
 admin.site.register(folder, Web_2)
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.unregister(CustomUser)
+admin.site.register(CustomUser, UserAdmin)
 admin.site.unregister(Group)
