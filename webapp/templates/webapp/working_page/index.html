@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,7 +81,12 @@
                                                         </div>
                                                     </li>
                                                     <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                                        <a class="nav-link" href="#">Вход</a>
+                                                        {% if request.user.is_authenticated %}
+                                                        <a class="nav-link" href="#">{{user.username}}</a>
+                                                        {% else %}
+                                                        <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                                                        {% endif %}
+
                                                     </li>
 
                                                 </ul>
@@ -134,15 +140,22 @@
         <img src="images/full-logo-ru.png" alt="">
     </a>
 </div>
-<nav>
-    <button class="custom-btn btn-7"><span>Мой профиль</span></button>
-</nav>
+
+{% if request.user.is_authenticated %}
 
 <nav><button class="custom-btn btn-8"><span>Мои файлы</span></button></nav>
+{% for f in folder %}
+<a href="{% url 'folder' f.pk %}">{{f.title}}</a>
+
+{% endfor %}
+{% else %}
+<h1>НАПИСАТЬ ЧТО ПОЛЬЗОВАТЕЛЬ НЕ АФТАРИЗВАН</h1>
+{% endif %}
+
 
 </header>
 <main>
-    <div class="choose"><input type="file" атрибуты></div>
+
     <div class="container"></div>
     <div class="drop">
         <div class="drop_container" id="drop-items">

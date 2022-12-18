@@ -140,16 +140,20 @@
         <img src="images/full-logo-ru.png" alt="">
     </a>
 </div>
+<div>
+    {% if request.user.is_authenticated %}
 
-{% if request.user.is_authenticated %}
-
-<nav><button class="custom-btn btn-8"><span>Мои файлы</span></button></nav>
-{% for f in folder %}
-<a href="{% url '' f.pk%}">{{f.title}}</a>
+{% for f in file%}
+{{f.title}}
+<a href="{{f.upload_file}}" download="{{f.upload_file}}">1</a>
+<br>
 {% endfor %}
+
 {% else %}
 <h1>НАПИСАТЬ ЧТО ПОЛЬЗОВАТЕЛЬ НЕ АФТАРИЗВАН</h1>
 {% endif %}
+
+</div>
 
 
 </header>

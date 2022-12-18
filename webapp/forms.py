@@ -22,3 +22,4 @@ class UserLoginForm(AuthenticationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password',]
+

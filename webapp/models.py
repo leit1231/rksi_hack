@@ -48,6 +48,8 @@ class folder(models.Model):
         verbose_name_plural = "Каталоги"
 
 
+
+
 class CustomUser(AbstractUser):
     FIO = models.CharField(max_length=100,
                            verbose_name="ФИО")
