@@ -17,7 +17,7 @@ class file(models.Model):
     title = models.CharField(max_length=30, validators=[MinLengthValidator(limit_value=7,
                                                                            message="Меньше 7")], verbose_name= "Название")
     parent_directory = models.ForeignKey('folder', on_delete=models.CASCADE, related_name='Каталог',
-                                          verbose_name='Каталог', default=None)
+                                          verbose_name='Каталог', default=None, blank=True, null=True)
     upload_file = models.FileField(upload_to='doc/', verbose_name='Загрузить файл')
     access = models.BooleanField(default=False, verbose_name='Доступ')
 
@@ -87,6 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     access = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    register_time = models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'full_name']
     objects = UserManager()
