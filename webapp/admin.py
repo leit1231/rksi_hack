@@ -30,18 +30,18 @@ class Web_2(admin.ModelAdmin):
     inlines = [FileInlineAdmin, ]
 
 
-
 @register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
     model = CustomUser
-    exclude = ["last_login", "groups", "user_permissions", "is_superuser", 'first_name','last_name',]
+    exclude = ["last_login", "groups", "user_permissions", "is_superuser", 'first_name', 'last_name', ]
+
     # fields = ("username", "email", "password", "full_name", "department_user", "birthday", "access")
     # add_form = UserCreationForm
     def save_model(self, request, obj, form, change):
         if obj.register_time == None:
             send_mail(f"Здраствуйте, {obj.FIO}.",
                       f"Вы были зарегестрированны на <Название сайта>\n Ваш пароль: {obj.password}",
-                      'bombino2281337test@gmail.com',[obj.email])
+                      'bombino2281337test@gmail.com', [obj.email])
         obj.save()
 
 
